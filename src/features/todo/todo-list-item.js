@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeTodo, editTodo } from "./todoSlice";
+import { removeTodo, editTodo, completeTodo } from "./todoSlice";
 
 const TodoListItem = ({ todo }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,12 @@ const TodoListItem = ({ todo }) => {
         editTodo({ id: todo.id, value: editTodoInputRef.current.value })
       );
     }
+
     setIsEditTodo(false);
+  };
+
+  const onCompleteTodoClicked = () => {
+    dispatch(completeTodo({ id: todo.id }));
   };
 
   return (
@@ -28,12 +33,22 @@ const TodoListItem = ({ todo }) => {
           <button onClick={() => onEditTodoClicked()}>edit</button>
         </>
       ) : (
-        <div
-          onClick={() => {
-            setIsEditTodo(true);
-          }}
-        >
-          {todo.value}
+        <>
+          <input
+            type="checkbox"
+            checked={todo.complete}
+            onClick={() => {
+              onCompleteTodoClicked();
+            }}
+          ></input>
+          <div
+            onClick={() => {
+              setIsEditTodo(true);
+            }}
+            style={{ display: "inline-block" }}
+          >
+            {todo.value}
+          </div>
           <button
             onClick={() => {
               onDeleteTodoClicked();
@@ -41,7 +56,7 @@ const TodoListItem = ({ todo }) => {
           >
             x
           </button>
-        </div>
+        </>
       )}
     </div>
   );

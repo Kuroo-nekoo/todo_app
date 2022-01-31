@@ -31,6 +31,7 @@ const todoSlice = createSlice({
           todo.completed = !todo.completed;
         }
       });
+      console.log(current(state));
     },
 
     editTodo: (state, action) => {
