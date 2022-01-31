@@ -45,7 +45,10 @@ const TodoListItem = ({ todo }) => {
             onClick={() => {
               setIsEditTodo(true);
             }}
-            style={{ display: "inline-block" }}
+            style={{
+              display: "inline-block",
+              textDecoration: todo.completed && "line-through",
+            }}
           >
             {todo.value}
           </div>
